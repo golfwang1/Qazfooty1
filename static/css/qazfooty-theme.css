@@ -1,0 +1,198 @@
+/* ==========================
+   QazFooty Theme — Yellow + Black (final)
+   ========================== */
+
+/* ---- Палитра ---- */
+:root{
+  --qf-yellow: #ffd54d;
+  --qf-yellow-strong:#ffcc00;
+  --qf-black: #111111;
+  --qf-gray: #f6f4f0;
+  --qf-text: #222222;
+  --qf-muted:#8c8c8c;
+  --qf-border:#e8e4dc;
+}
+
+/* ---- Лэйаут (липкий футер без белой полосы) ---- */
+html, body { height: 100%; }
+body{
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  background:var(--qf-gray);
+  color:var(--qf-text);
+}
+main{ flex: 1 0 auto; }
+footer{ flex: 0 0 auto; }
+
+/* ---- NAVBAR ---- */
+.navbar { background: var(--qf-black) !important; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
+.navbar .navbar-brand { color: var(--qf-yellow-strong) !important; font-weight: 700; font-size: 1.25rem; }
+.navbar .nav-link { color: #e9e9e9 !important; transition: color .18s ease; }
+.navbar .nav-link:hover { color: var(--qf-yellow-strong) !important; }
+.navbar .navbar-brand, .navbar .nav-link{
+  font-weight:700;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Logout как nav-link */
+.logout-form{ display:inline-flex; align-items:center; margin:0; }
+.nav-logout, .logout-link{
+  color:#e9e9e9 !important; text-decoration:none !important; cursor:pointer;
+}
+.nav-logout:hover, .logout-link:hover{ color:var(--qf-yellow-strong) !important; }
+
+/* ---- Заголовки секций с жёлтой планкой слева ---- */
+.section-title{
+  position:relative; padding-left:18px; margin:0; font-weight:800; color:#0f0f0f;
+}
+.section-title::before{
+  content:""; position:absolute; left:0; top:50%; transform:translateY(-50%);
+  width:6px; height:24px; border-radius:3px; background:var(--qf-yellow-strong);
+}
+/* Совместимость со «старым» блоком */
+.section-head h2{
+  color:#0f0f0f; font-weight:800;
+  border-left:6px solid var(--qf-yellow-strong);
+  padding-left:12px; margin:0;
+}
+
+/* ---- Подзаголовок с фирменным подчёркиванием (если используешь) ---- */
+.page-head{ padding:.75rem .25rem 1rem .25rem; }
+.section-subtitle{
+  margin:0; color:#6a6a6a; font-weight:600; letter-spacing:.1px; position:relative; display:inline-block;
+}
+.section-subtitle::after{
+  content:""; display:block; height:3px; width:260px; max-width:100%;
+  margin-top:6px; background:var(--qf-yellow-strong); border-radius:2px; box-shadow:0 2px 8px rgba(255,204,0,.25);
+}
+
+/* ---- Плашки-кнопки (pill) «Все новости», «На главную», «Вступить…» ---- */
+.btn-chip-yellow, .pill-link{
+  display:inline-flex; align-items:center; justify-content:center; gap:.4rem;
+  padding:.5rem 1rem; border-radius:14px; background:var(--qf-yellow);
+  border:1px solid #e0b800; color:#222; font-weight:700; text-decoration:none;
+  letter-spacing:.2px; line-height:1; white-space:nowrap;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+  transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease, color .15s ease;
+}
+.btn-chip-yellow:hover, .pill-link:hover{
+  transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.12);
+  background:var(--qf-yellow-strong); color:#111; text-decoration:none;
+}
+.btn-chip-yellow:active, .pill-link:active{
+  transform:translateY(0); box-shadow:0 6px 18px rgba(0,0,0,.10);
+}
+
+/* ---- Карточки (общие) ---- */
+.card{
+  border:none; border-radius:14px;
+  box-shadow:0 12px 28px rgba(0,0,0,.06);
+  transition:transform .18s ease, box-shadow .18s ease;
+  background:#fff;
+}
+.card:hover{ transform:translateY(-2px); box-shadow:0 16px 32px rgba(0,0,0,.10); }
+.card-title{ font-weight:700; color:#0f0f0f; }
+
+/* ---- Кнопки ---- */
+.btn-dark{ background:var(--qf-black); border-color:var(--qf-black); }
+.btn-dark:hover{ background:var(--qf-yellow-strong); border-color:var(--qf-yellow-strong); color:#111; }
+.btn-outline-dark{ border-color:var(--qf-yellow-strong); color:var(--qf-yellow-strong); }
+.btn-outline-dark:hover{ background:var(--qf-yellow-strong); border-color:var(--qf-yellow-strong); color:#111; }
+
+/* «Подробнее/Читать» — компактно */
+.btn-read{
+  display:inline-block; padding:.35rem .65rem; font-size:.9rem;
+  border:1px solid var(--qf-yellow-strong); color:var(--qf-yellow-strong);
+  border-radius:8px; background:#fff; transition:all .15s ease;
+}
+.btn-read:hover{ background:var(--qf-yellow-strong); color:#111; text-decoration:none; }
+
+/* ---- Пагинация ---- */
+.page-item.active .page-link{ background:var(--qf-yellow-strong); border-color:var(--qf-yellow-strong); color:#111; }
+.page-link{ color:#111; }
+.page-link:hover{ background:var(--qf-yellow); color:#111; }
+
+/* ==== FOOTER (edge-to-edge, типографика) ==== */
+.site-footer{ width:100%; background:var(--qf-black); border-top:3px solid var(--qf-yellow-strong); color:var(--qf-yellow-strong); }
+.site-footer__inner{ max-width:1440px; margin:0 auto; padding:22px 24px; text-align:center; }
+.site-footer__text{
+  display:inline-block; font-size:0.975rem; line-height:1.45; letter-spacing:.1px; font-weight:600;
+}
+.site-footer__link{ text-decoration:none; border-bottom:1px dotted rgba(255,204,0,.6); }
+.site-footer__link:focus, .site-footer__link:hover{ text-decoration:none; border-bottom-color:var(--qf-yellow-strong); }
+.text-accent{ color:var(--qf-yellow-strong); font-weight:700; }
+/* если случайно осталась .container внутри футера */
+.site-footer .container{ max-width:none; width:100%; padding:0; margin:0; }
+
+/* === Бейдж клуба (на group_detail и т.п.) === */
+.badge-club{
+  display:inline-block; padding:.2rem .5rem; border:1px solid #e0b800; border-radius:999px;
+  background:#fff8cc; color:#222; font-weight:700; font-size:.78rem; line-height:1;
+}
+
+/* Описание группы — читаемость */
+.group-description p{ margin-bottom:.75rem; }
+.group-description li{ margin-bottom:.35rem; }
+
+/* ===== Метки (например «Место встречи») ===== */
+.meta-text{
+  color:#555; font-weight:500; font-size:.95rem;
+  background:rgba(255, 204, 0, 0.08);
+  padding:4px 10px; border-radius:8px; display:inline-block; margin-bottom:10px;
+}
+.meta-text strong{ color:var(--qf-yellow-strong); font-weight:700; }
+
+/* ====== Чипы "Город / Основан" ====== */
+.meta-chip{
+  display:inline-block;
+  background: rgba(255,204,0,.12);
+  border:1px solid #e0b800;
+  color:#222;
+  padding:.35rem .7rem;
+  border-radius:10px;
+  font-weight:600;
+  margin:.25rem .35rem;
+}
+.meta-chip strong{ color:#b38700; font-weight:800; }
+@media (max-width: 576px){
+  .meta-chip { display:block; margin:.35rem auto; text-align:center; }
+}
+
+/* ====== Club detail / Titles ====== */
+.club-titles{ line-height:1.55; color:#2a2a2a; }
+.club-titles strong{ font-weight:800; }
+
+/* ====== Club detail / Players ====== */
+/* Карточки игроков — лёгкая тень, жёлтая рамка при ховере */
+.player-card{
+  border:1px solid transparent;
+  border-radius:14px;
+  box-shadow:0 10px 26px rgba(0,0,0,.06);
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  background:#fff;
+}
+.player-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 32px rgba(0,0,0,.10);
+  border-color:#ffcc00;
+}
+.player-name{ font-weight:800; color:#0f0f0f; }
+
+/* Позиция игрока — ЖЁЛТАЯ ПИЛЮЛЯ (без нижней черты) */
+.player-position{
+  display:inline-block;
+  background:#ffd54d;
+  border:1px solid #e0b800;
+  color:#222;
+  padding:.22rem .5rem;
+  border-radius:999px;
+  font-size:.85rem;
+  font-weight:700;
+}
+/* гарантированно убираем возможный «подчерк» из старых стилей */
+.player-position::after{ content:none !important; }
+
+

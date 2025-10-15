@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Профиль {{ profile_user.username }}{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8 mx-auto">
+    <div class="card mb-4">
+      <div class="card-body">
+        <h3 class="card-title mb-1">@{{ profile_user.username }}</h3>
+        {% if profile_user.first_name or profile_user.last_name %}
+          <p class="text-muted mb-2">
+            {{ profile_user.first_name }} {{ profile_user.last_name }}
+          </p>
+        {% endif %}
+        {% if profile_user.email %}
+          <p class="mb-0"><strong>Email:</strong> {{ profile_user.email }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <h5 class="mb-3">Фан-фото</h5>
+    <div class="row">
+      {% if photos %}
+        {% for ph in photos %}
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              {% if ph.photo %}
+                <img class="card-img-top" src="{{ ph.photo.url }}" alt="{{ ph.caption|default:'Фото' }}">
+              {% endif %}
+              <div class="card-body">
+                <p class="card-text mb-0">{{ ph.caption }}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="col-12">
+          <div class="alert alert-light border">Пока нет загруженных фото.</div>
+        </div>
+      {% endif %}
+    </div>
+
+    <a class="btn btn-outline-secondary" href="javascript:history.back()">Назад</a>
+  </div>
+</div>
+{% endblock %}
+

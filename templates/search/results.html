@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Результаты поиска{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2 class="mb-3">Результаты поиска</h2>
+
+  {% if q %}
+    <p class="text-muted">Вы искали: <strong>{{ q }}</strong></p>
+  {% else %}
+    <p class="text-muted">Введите запрос в поле поиска вверху.</p>
+  {% endif %}
+
+  {# --- КЛУБЫ --- #}
+  {% if clubs %}
+    <h4 class="mt-4 mb-2">Клубы</h4>
+    <div class="row">
+      {% for c in clubs %}
+        <div class="col-md-6 col-lg-4 mb-3">
+          <div class="card h-100">
+            {% if c.logo %}
+              <img class="card-img-top" src="{{ c.logo.url }}" alt="{{ c.name }}" style="height:180px;object-fit:cover;">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title mb-1">{{ c.name }}</h5>
+              <a class="btn btn-outline-dark btn-sm" href="{% url 'club_detail' c.id %}">Открыть</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {# --- ПОЛЬЗОВАТЕЛИ --- #}
+  {% if users %}
+    <h4 class="mt-4 mb-2">Пользователи</h4>
+    <ul class="list-group mb-4">
+      {% for u in users %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>@{{ u.username }}</span>
+          <div class="d-flex align-items-center gap-2">
+            {% if u.email %}<span class="text-muted small mr-3">{{ u.email }}</span>{% endif %}
+            {# ВАЖНО: используем неймспейс users #}
+            <a class="btn btn-light btn-sm" href="{% url 'users:public_profile' u.username %}">Профиль</a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {# --- ГРУППЫ --- #}
+  {% if groups %}
+    <h4 class="mt-4 mb-2">Группы</h4>
+    <div class="row">
+      {% for g in groups %}
+        <div class="col-md-6 col-lg-4 mb-3">
+          <div class="card h-100">
+            {% if g.profile and g.profile.avatar %}
+              <img class="card-img-top" src="{{ g.profile.avatar.url }}" alt="{{ g.name }}" style="height:180px;object-fit:cover;">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title mb-1">{{ g.name }}</h5>
+              <div class="text-muted small mb-2">Участников: {{ g.members_count|default:"—" }}</div>
+              {# ВАЖНО: ссылки на детальную страницу группы с неймспейсом users #}
+              <a class="btn btn-outline-dark btn-sm" href="{% url 'users:group_detail' g.id %}">Открыть</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="mt-2">
+      <a class="small text-muted" href="{% url 'users:groups_list' %}">Все группы</a>
+    </div>
+  {% endif %}
+
+  {% if not clubs and not users and not groups %}
+    <div class="alert alert-light border mt-4">Ничего не найдено.</div>
+  {% endif %}
+</div>
+{% endblock %}

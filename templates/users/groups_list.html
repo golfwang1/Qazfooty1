@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Группы{% endblock %}
+
+{% block content %}
+<h1 class="h4 mb-3">Группы</h1>
+
+<div class="row">
+  {% for g in groups %}
+    <div class="col-md-6 col-lg-4 mb-3">
+      <div class="card h-100">
+        {% if g.profile and g.profile.avatar %}
+          <img class="card-img-top" src="{{ g.profile.avatar.url }}" alt="{{ g.name }}" style="height:180px;object-fit:cover;">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title mb-1">{{ g.name }}</h5>
+          <div class="text-muted small mb-2">Участников: {{ g.members_count|default:0 }}</div>
+          {% if g.profile and g.profile.club %}
+            <div class="small">Клуб: {{ g.profile.club.name }}</div>
+          {% endif %}
+          {% if g.profile and g.profile.meet_place %}
+            <div class="small text-muted">Место встречи: {{ g.profile.meet_place }}</div>
+          {% endif %}
+        </div>
+        <div class="card-footer bg-white border-0 pt-0">
+          <a class="btn btn-outline-dark btn-sm" href="{% url 'users:group_detail' g.pk %}">Подробнее</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <div class="col-12">
+      <div class="alert alert-light border">Групп пока нет.</div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+
+

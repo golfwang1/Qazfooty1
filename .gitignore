@@ -1,0 +1,23 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# venv
+.venv/
+venv/
+
+# Env / secrets
+.env
+.env.*
+
+# Django artifacts
+db.sqlite3
+media/
+staticfiles/
+
+# IDE/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

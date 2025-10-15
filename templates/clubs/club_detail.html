@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}{{ club.name }}{% endblock %}
+
+{% block content %}
+<div class="fade-up">
+  <!-- Заголовок и эмблема -->
+  <header class="text-center mb-3">
+    <h1 class="display-5 mb-2 hero-title">{{ club.name }}</h1>
+    {% if club.logo %}
+      <img src="{{ club.logo.url }}" alt="{{ club.name }}" style="max-height:110px">
+    {% endif %}
+  </header>
+
+  <!-- Чипы: город / основан -->
+  <div class="d-flex justify-content-center flex-wrap gap-2 mb-3">
+    {% if club.city %}
+      <span class="meta-chip"><strong>Город:</strong> {{ club.city }}</span>
+    {% endif %}
+    {% if club.founded %}
+      <span class="meta-chip"><strong>Основан:</strong> {{ club.founded }}</span>
+    {% endif %}
+  </div>
+
+  <!-- Титулы -->
+  {% if club.titles %}
+    <p class="club-titles mb-4">
+      <strong>Титулы:</strong> {{ club.titles }}
+    </p>
+  {% endif %}
+
+  <!-- Игроки -->
+  <section class="mb-4">
+    <h3 class="section-title mb-3">Игроки</h3>
+
+    <div class="row">
+      {% for p in club.players.all %}
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
+          <div class="card player-card h-100">
+            {% if p.photo %}
+              <img class="card-img-top" src="{{ p.photo.url }}" alt="{{ p.name }}"
+                   style="object-fit:cover;max-height:340px">
+            {% endif %}
+            <div class="card-body text-center">
+              <div class="player-name mb-2">{{ p.name }}</div>
+              {% if p.position %}
+                <!-- Жёлтый чип для позиции -->
+                <span class="badge badge-warning px-3 py-2">{{ p.position }}</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="col-12"><em>Игроки ещё не добавлены.</em></div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+
+
+
+

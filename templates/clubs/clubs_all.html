@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Все клубы КПЛ{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <!-- Шапка страницы -->
+  <div class="page-head mb-3">
+    <h1 class="section-title mb-2">Все клубы КПЛ</h1>
+    <p class="section-subtitle">Полный список клубов на платформе</p>
+  </div>
+
+  <!-- Сетка карточек клубов -->
+  <div class="row">
+    {% for club in clubs %}
+      <div class="col-md-6 col-lg-4 mb-4 fade-up">
+        <div class="card h-100">
+          {% if club.logo %}
+            <img class="card-img-top"
+                 src="{{ club.logo.url }}"
+                 alt="{{ club.name }}"
+                 style="height:360px;object-fit:contain;background:#fff;">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title mb-1">{{ club.name }}</h5>
+            {% if club.city %}<div class="text-muted small mb-1">{{ club.city }}</div>{% endif %}
+            {% if club.founded %}<div class="text-muted small mb-2">Основан: {{ club.founded }}</div>{% endif %}
+            <a class="btn btn-read" href="{% url 'club_detail' club.pk %}">Подробнее</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12">
+        <div class="alert alert-light border">Клубов пока нет.</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Кнопка назад в фирменном стиле -->
+  <a class="btn-chip-yellow" href="{% url 'home' %}">На главную</a>
+
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>QazFooty API — тест</title>
+  <link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css' %}">
+  <style>
+    body{background:#faf8f2}
+    .wrap{max-width:920px;margin:32px auto;padding:24px;background:#fff;border-radius:14px;box-shadow:0 12px 28px rgba(0,0,0,.06)}
+    h1{font-weight:800;margin-bottom:12px}
+    .muted{color:#666}
+    .token-row{display:flex;gap:8px;align-items:center}
+    .token-row input{flex:1}
+    .btn-yellow{background:#ffcc00;border:1px solid #e0b800;color:#111;font-weight:700}
+    .btn-yellow:hover{background:#ffd54d;border-color:#e0b800;color:#111}
+    pre{background:#0b1020;color:#e6f3ff;padding:12px;border-radius:8px;max-height:420px;overflow:auto}
+    .small-hint{font-size:.9rem;color:#555}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>QazFooty API</h1>
+  <p class="muted">Вставь <strong>access-token</strong> (JWT) и вызови эндпоинты.</p>
+
+  <div class="mb-3 token-row">
+    <input id="tokenInput" class="form-control" placeholder="Bearer-токен (access) сюда…" />
+    <button id="saveBtn" class="btn btn-yellow">Сохранить</button>
+    <button id="clearBtn" class="btn btn-outline-secondary">Очистить</button>
+  </div>
+  <p class="small-hint">Где взять токен? POST на <code>/api/auth/token/</code> с
+    <code>{"username":"...", "password":"..."}</code>. Скопируй поле <code>access</code>.
+  </p>
+
+  <hr>
+
+  <div class="d-flex flex-wrap gap-2 mb-3">
+    <button data-path="/api/clubs/"   class="btn btn-yellow mb-2">GET /api/clubs/</button>
+    <button data-path="/api/players/" class="btn btn-yellow mb-2">GET /api/players/</button>
+    <button data-path="/api/news/"    class="btn btn-yellow mb-2">GET /api/news/</button>
+  </div>
+
+  <div>
+    <h5 class="mb-2">Ответ</h5>
+    <pre id="out">{ "hint": "нажми на любую кнопку выше" }</pre>
+  </div>
+</div>
+
+<script>
+  const tokenInput = document.getElementById('tokenInput');
+  const out = document.getElementById('out');
+
+  // восстановить из localStorage
+  const SAVED = localStorage.getItem('qf_api_token') || '';
+  if (SAVED) tokenInput.value = SAVED;
+
+  document.getElementById('saveBtn').onclick = () => {
+    localStorage.setItem('qf_api_token', tokenInput.value.trim());
+    alert('Токен сохранён.');
+  };
+  document.getElementById('clearBtn').onclick = () => {
+    localStorage.removeItem('qf_api_token');
+    tokenInput.value = '';
+    out.textContent = '{ "info": "токен очищен" }';
+  };
+
+  async function call(path){
+    const token = tokenInput.value.trim();
+    if (!token) { out.textContent = '{ "error": "вставь токен!" }'; return; }
+
+    try{
+      const res = await fetch(path, { headers: { 'Authorization': 'Bearer ' + token }});
+      const txt = await res.text();
+      try { out.textContent = JSON.stringify(JSON.parse(txt), null, 2); }
+      catch { out.textContent = txt; }
+    }catch(e){
+      out.textContent = JSON.stringify({ error: e.message }, null, 2);
+    }
+  }
+  document.querySelectorAll('button[data-path]').forEach(b=>{
+    b.addEventListener('click', ()=> call(b.dataset.path));
+  });
+</script>
+</body>
+</html>
+

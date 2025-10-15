@@ -1,0 +1,25 @@
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="mb-3">{{ title|default:"Новости" }}</h5>
+    {% if items %}
+      <ul class="list-unstyled mb-0">
+        {% for n in items %}
+          <li class="media mb-3">
+            {% if n.image %}
+              <img src="{{ n.image.url }}" class="mr-3 rounded" style="width:70px;height:70px;object-fit:cover;">
+            {% endif %}
+            <div class="media-body">
+              <a href="{% url 'news_detail' n.pk %}" class="stretched-link text-dark">
+                <strong>{{ n.title }}</strong>
+              </a>
+              <div class="text-muted small">{{ n.created_at|date:"d.m.Y H:i" }}</div>
+              <div class="small">{{ n.short_text|truncatechars:100 }}</div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="alert alert-light border mb-0">Пока без новостей.</div>
+    {% endif %}
+  </div>
+</div>

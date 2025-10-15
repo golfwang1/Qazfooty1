@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Все новости{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="section-title mb-0 text-uppercase">Все новости</h1>
+  <a class="btn-chip-yellow" href="{% url 'home' %}">На главную</a>
+</div>
+
+{% if news %}
+  <div class="row">
+    {% for n in news %}
+      <div class="col-md-6 mb-4">
+        <div class="card h-100">
+          {% if n.image %}
+            <img class="card-img-top" src="{{ n.image.url }}" alt="{{ n.title }}">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title mb-2">{{ n.title }}</h5>
+            {% if n.excerpt %}
+              <p class="text-muted mb-2">{{ n.excerpt }}</p>
+            {% endif %}
+            <div class="small text-muted mb-2">
+              {{ n.published_at|date:"d.m.Y H:i" }}
+            </div>
+            {% if n.source_url %}
+              <a class="btn btn-dark btn-sm" href="{{ n.source_url }}" target="_blank" rel="noopener">
+                Читать источник
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if page_obj.paginator.num_pages > 1 %}
+    <nav aria-label="Навигация">
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">‹</a></li>
+        {% else %}
+          <li class="page-item disabled"><span class="page-link">‹</span></li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+          {% if num == page_obj.number %}
+            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+          {% elif num >= page_obj.number|add:-2 and num <= page_obj.number|add:2 %}
+            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+          {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">›</a></li>
+        {% else %}
+          <li class="page-item disabled"><span class="page-link">›</span></li>
+        {% endif %}
+      </ul>
+    </nav>
+  {% endif %}
+{% else %}
+  <div class="alert alert-light border">Пока нет новостей.</div>
+{% endif %}
+{% endblock %}
+
+
+
