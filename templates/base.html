@@ -20,7 +20,7 @@
     crossorigin="anonymous"
   >
   <!-- Твой кастомный CSS (если есть) -->
-  <link rel="stylesheet" href="{% static 'css/qazfooty-theme.css' %}">
+  <link rel="stylesheet" href="{% static 'css/qazfooty-theme.css' %}?v=7">
   {% block extra_css %}{% endblock %}
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -66,11 +66,54 @@
   {% block content %}{% endblock %}
 </main>
 
-<footer class="bg-dark text-light py-4 mt-auto">
-  <div class="container text-center">
-    <small>QazFooty © {% now "Y" %}. Все права защищены.</small>
+<footer id="qf-footer" class="qf-footer mt-auto">
+  <div class="qf-footer__top">
+    <div class="container">
+      <div class="row g-4 align-items-start">
+        <div class="col-12 col-lg-5">
+          <h5 class="qf-ft-title">QazFooty</h5>
+          <p class="mb-2">Новости, клубы и фанатские группы казахстанского футбола.</p>
+          <span class="qf-ft-badge">⚽ Kazakhstan Football</span>
+        </div>
+
+        <div class="col-6 col-lg-3">
+          <h6 class="qf-ft-head">Навигация</h6>
+          <ul class="list-unstyled m-0">
+            <li class="mb-2"><a class="qf-ft-link" href="/">Главная</a></li>
+            <li class="mb-2"><a class="qf-ft-link" href="/news/">Новости</a></li>
+            <li class="mb-2"><a class="qf-ft-link" href="/clubs/">Клубы</a></li>
+            <li class="mb-2"><a class="qf-ft-link" href="/search/">Поиск</a></li>
+            {% if user.is_authenticated %}
+              <li class="mb-2"><a class="qf-ft-link" href="/users/profile/">Профиль</a></li>
+            {% else %}
+              <li class="mb-2"><a class="qf-ft-link" href="/users/login/">Войти</a></li>
+            {% endif %}
+          </ul>
+        </div>
+
+        <div class="col-6 col-lg-4">
+          <h6 class="qf-ft-head">Контакты</h6>
+          <ul class="list-unstyled m-0">
+            <li class="mb-2"><i class="fa-solid fa-phone me-2"></i><a class="qf-ft-link" href="tel:+77087684019">+7 708 768-40-19</a></li>
+            <li class="mb-2"><i class="fa-solid fa-envelope me-2"></i><a class="qf-ft-link" href="mailto:sultanaimbetov8@gmail.com">sultanaimbetov8@gmail.com</a></li>
+            <li class="mb-2"><i class="fa-regular fa-clock me-2"></i>Пн–Вс: 10:00–22:00</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qf-footer__bottom">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <small class="text-secondary">QazFooty © {% now "Y" %}. Все права защищены.</small>
+      <small>
+        <a class="qf-ft-link" href="tel:+77087684019">+7 708 768-40-19</a> ·
+        <a class="qf-ft-link" href="mailto:sultanaimbetov8@gmail.com">sultanaimbetov8@gmail.com</a>
+      </small>
+    </div>
   </div>
 </footer>
+
 
 <!-- Bootstrap bundle (Popper внутри). jQuery НЕ нужен -->
 <script

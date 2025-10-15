@@ -59,7 +59,7 @@ footer{ flex: 0 0 auto; }
   padding-left:12px; margin:0;
 }
 
-/* ---- Подзаголовок с фирменным подчёркиванием (если используешь) ---- */
+/* ---- Подзаголовок с фирменным подчёркиванием ---- */
 .page-head{ padding:.75rem .25rem 1rem .25rem; }
 .section-subtitle{
   margin:0; color:#6a6a6a; font-weight:600; letter-spacing:.1px; position:relative; display:inline-block;
@@ -69,7 +69,7 @@ footer{ flex: 0 0 auto; }
   margin-top:6px; background:var(--qf-yellow-strong); border-radius:2px; box-shadow:0 2px 8px rgba(255,204,0,.25);
 }
 
-/* ---- Плашки-кнопки (pill) «Все новости», «На главную», «Вступить…» ---- */
+/* ---- Плашки-кнопки (pill) ---- */
 .btn-chip-yellow, .pill-link{
   display:inline-flex; align-items:center; justify-content:center; gap:.4rem;
   padding:.5rem 1rem; border-radius:14px; background:var(--qf-yellow);
@@ -86,7 +86,7 @@ footer{ flex: 0 0 auto; }
   transform:translateY(0); box-shadow:0 6px 18px rgba(0,0,0,.10);
 }
 
-/* ---- Карточки (общие) ---- */
+/* ---- Карточки ---- */
 .card{
   border:none; border-radius:14px;
   box-shadow:0 12px 28px rgba(0,0,0,.06);
@@ -115,19 +115,7 @@ footer{ flex: 0 0 auto; }
 .page-link{ color:#111; }
 .page-link:hover{ background:var(--qf-yellow); color:#111; }
 
-/* ==== FOOTER (edge-to-edge, типографика) ==== */
-.site-footer{ width:100%; background:var(--qf-black); border-top:3px solid var(--qf-yellow-strong); color:var(--qf-yellow-strong); }
-.site-footer__inner{ max-width:1440px; margin:0 auto; padding:22px 24px; text-align:center; }
-.site-footer__text{
-  display:inline-block; font-size:0.975rem; line-height:1.45; letter-spacing:.1px; font-weight:600;
-}
-.site-footer__link{ text-decoration:none; border-bottom:1px dotted rgba(255,204,0,.6); }
-.site-footer__link:focus, .site-footer__link:hover{ text-decoration:none; border-bottom-color:var(--qf-yellow-strong); }
-.text-accent{ color:var(--qf-yellow-strong); font-weight:700; }
-/* если случайно осталась .container внутри футера */
-.site-footer .container{ max-width:none; width:100%; padding:0; margin:0; }
-
-/* === Бейдж клуба (на group_detail и т.п.) === */
+/* === Бейдж клуба === */
 .badge-club{
   display:inline-block; padding:.2rem .5rem; border:1px solid #e0b800; border-radius:999px;
   background:#fff8cc; color:#222; font-weight:700; font-size:.78rem; line-height:1;
@@ -137,7 +125,7 @@ footer{ flex: 0 0 auto; }
 .group-description p{ margin-bottom:.75rem; }
 .group-description li{ margin-bottom:.35rem; }
 
-/* ===== Метки (например «Место встречи») ===== */
+/* ===== Метки ===== */
 .meta-text{
   color:#555; font-weight:500; font-size:.95rem;
   background:rgba(255, 204, 0, 0.08);
@@ -161,12 +149,11 @@ footer{ flex: 0 0 auto; }
   .meta-chip { display:block; margin:.35rem auto; text-align:center; }
 }
 
-/* ====== Club detail / Titles ====== */
+/* ====== Club detail ====== */
 .club-titles{ line-height:1.55; color:#2a2a2a; }
 .club-titles strong{ font-weight:800; }
 
-/* ====== Club detail / Players ====== */
-/* Карточки игроков — лёгкая тень, жёлтая рамка при ховере */
+
 .player-card{
   border:1px solid transparent;
   border-radius:14px;
@@ -181,7 +168,7 @@ footer{ flex: 0 0 auto; }
 }
 .player-name{ font-weight:800; color:#0f0f0f; }
 
-/* Позиция игрока — ЖЁЛТАЯ ПИЛЮЛЯ (без нижней черты) */
+
 .player-position{
   display:inline-block;
   background:#ffd54d;
@@ -192,7 +179,96 @@ footer{ flex: 0 0 auto; }
   font-size:.85rem;
   font-weight:700;
 }
-/* гарантированно убираем возможный «подчерк» из старых стилей */
+
 .player-position::after{ content:none !important; }
 
+/* === THEMED FOOTER (QazFooty) === */
+.qf-footer{
+  background: var(--qf-black);
+  color: #e9ecef;
+  border-top: 3px solid var(--qf-yellow-strong);
+}
 
+/* верхняя зона */
+.qf-footer__top{
+  padding: 40px 0 24px;
+}
+
+/* нижняя полоса */
+.qf-footer__bottom{
+  border-top: 1px solid rgba(255,255,255,.12);
+  padding: 14px 0;
+}
+
+/* заголовки/акценты */
+.qf-ft-title{
+  color: var(--qf-yellow-strong);
+  font-weight: 800;
+  margin: 0 0 10px 0;
+  position: relative;
+  display: inline-block;
+}
+.qf-ft-title::before{
+  content: "";
+  position: absolute; left: -12px; top: 50%; transform: translateY(-50%);
+  width: 6px; height: 22px; border-radius: 3px;
+  background: var(--qf-yellow-strong);
+}
+
+.qf-ft-head{
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 12px;
+}
+.qf-ft-head::before{
+  content: "";
+  position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  width: 6px; height: 18px; border-radius: 3px;
+  background: var(--qf-yellow-strong);
+}
+
+/* бейдж под брендом */
+.qf-ft-badge{
+  display: inline-block;
+  background: rgba(255,204,0,.12);
+  border: 1px solid #e0b800;
+  color: #ffd54d;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: .2rem .6rem;
+  margin-top: 6px;
+}
+
+/* ссылки в футере */
+.qf-footer a,
+.qf-ft-link{
+  color: #b9c4cf;
+  text-decoration: none;
+  transition: color .15s ease, text-shadow .15s ease;
+}
+.qf-footer a:hover,
+.qf-ft-link:hover{
+  color: #fff;
+  text-shadow: 0 0 0 transparent, 0 0 12px rgba(255,204,0,.25);
+}
+
+/* не перекрывать контент */
+#qf-footer { flex: 0 0 auto; }
+
+/* адаптив */
+@media (max-width: 576px){
+  .qf-footer__top{ padding: 28px 0 18px; }
+}
+
+
+/* --- усиление цветов ссылок в футере поверх bootstrap --- */
+.qf-footer a,
+.qf-ft-link {
+  color: #b9c4cf !important;
+}
+.qf-footer a:hover,
+.qf-ft-link:hover {
+  color: #ffffff !important;
+}
